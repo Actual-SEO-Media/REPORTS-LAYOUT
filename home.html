@@ -23,7 +23,15 @@
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.min.js"></script>
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <py-env>
+        - numpy
+        - pandas
+        - ftplib
+        - paths:
+            - server_RK.py
+            - ABBA_TEST.csv
+            
+      </py-env>
 
 </head>
 
@@ -97,7 +105,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span class="badge badge-warning badge-counter">3+</span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -116,28 +124,7 @@
                                         <span class="font-weight-bold">A new monthly report is ready to download!</span>
                                     </div>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
+                                
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
@@ -148,7 +135,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
+                                <span class="badge badge-primary badge-counter">7</span>
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -164,7 +151,7 @@
                                     <div class="font-weight-bold">
                                         <div class="text-truncate">Hi there! I am wondering if you can help me with a
                                             problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                        <div class="small text-gray-500">Ashley · 58m</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -175,7 +162,7 @@
                                     <div>
                                         <div class="text-truncate">I have the photos that you ordered last month, how
                                             would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
+                                        <div class="small text-gray-500">Kade · 1d</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -186,7 +173,7 @@
                                     <div>
                                         <div class="text-truncate">Last month's report looks great, I am very happy with
                                             the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                        <div class="small text-gray-500">Dinalia · 2d</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -198,7 +185,7 @@
                                     <div>
                                         <div class="text-truncate">Am I a good boy? The reason I ask is because someone
                                             told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                        <div class="small text-gray-500">Corey · 2w</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
@@ -245,7 +232,7 @@
                 <!-- Begin Page Content -->
                 <div class = "header" style = "background-color:#a9c2e37c;width: 100%; margin: auto; margin-top: -25px; border-radius: .35rem;   
                 padding: 2em; margin-bottom: 2em; display: flex; justify-content: center; opacity: .8;">            
-                    <img src="img/ASMheaderlogo2.png" style ="width: 30em;">
+                    <img style = "width: 100%;" src="img/ASMheaderlogo2.png" style ="width: 30em;">
                     </div>
                    
                        
@@ -273,15 +260,7 @@
                                         <div class="col mr-2"style = "font-family: SFPROBOLD;">
                                             <div  class="text-xs font-weight-bold text-primary text-uppercase mb-1" style = "font-family: SFPROBOLD;">
                                                 Keywords Analyzed</div>
-                                                <py-env>
-                                                    - matplotlib
-                                                    - numpy
-                                                    - pandas
-                                                    - paths:
-                                                        - server_RK.py
-                                                        - ABBA_TEST.csv
-                                                        
-                                                  </py-env>
+                                                
                                                   <py-script>
                                                     import pandas as pd
                                                     import numpy as np
@@ -423,6 +402,8 @@
                                 <div class="card-body">
                                         <div class="chart-bar">
                                             <canvas id="myBarChart1"></canvas>
+                                           
+                                              <py-script src="js/demo/change_Graph.py"> </py-script>
                                         </div>
                                     
                                 </div>
@@ -622,15 +603,7 @@ $(document).ready(function() {
                                       <th scope="col">Previous</th>
                                       <th  scope="col">Difference</th>
                                       <th  scope="col">Note</th>
-                                      <py-env>
-                                        - matplotlib
-                                        - numpy
-                                        - pandas
-                                        - paths:
-                                            - server_RK.py
-                                            - ABBA_TEST.csv
-                                            
-                                      </py-env>
+                                     
                                                 </tr>
                                             </tfoot>
                                             <tbody id = "ROWS">
@@ -769,15 +742,7 @@ $(document).ready(function() {
                                       <th scope="col">Previous</th>
                                       <th  scope="col">Difference</th>
                                       <th scope="col">Note</th>
-                                      <py-env>
-                                        - matplotlib
-                                        - numpy
-                                        - pandas
-                                        - paths:
-                                            - server_RK.py
-                                            - ABBA_TEST.csv
-                                            
-                                      </py-env>
+                                      
                                                 </tr>
                                             </tfoot>
                                             <tbody id = "ROWS1">
@@ -921,15 +886,7 @@ $('#dataTable2').DataTable({
                                   <th scope="col">Previous</th>
                                   <th  scope="col">Difference</th>
                                   <th  scope="col">Note</th>
-                                  <py-env>
-                                    - matplotlib
-                                    - numpy
-                                    - pandas
-                                    - paths:
-                                        - server_RK.py
-                                        - ABBA_TEST.csv
-                                        
-                                  </py-env>
+                                 
                                             </tr>
                                         </tfoot>
                                         <tbody id = "ROWS2">
@@ -1065,15 +1022,7 @@ $('#dataTable3').DataTable({
                                   <th scope="col">Previous</th>
                                   <th  scope="col">Difference</th>
                                   <th scope="col">Note</th>
-                                  <py-env>
-                                    - matplotlib
-                                    - numpy
-                                    - pandas
-                                    - paths:
-                                        - server_RK.py
-                                        - ABBA_TEST.csv
-                                        
-                                  </py-env>
+                                 
                                             </tr>
                                         </tfoot>
                                         <tbody id = "ROWS3">
@@ -1189,7 +1138,7 @@ $('#dataTable3').DataTable({
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="index.html">Logout</a>
                 </div>
             </div>
         </div>
