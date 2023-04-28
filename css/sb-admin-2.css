@@ -4492,7 +4492,6 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid #e3e6f0;
   border-radius: 0.35rem;
 }
 
@@ -6487,6 +6486,41 @@ button.bg-light:focus {
 
 .bg-black {
   background-color: black !important;
+}
+.bg-bg-main {
+background-color: #061418 !important;
+}
+.bg-grey {
+  background: #1F2022 !important
+}
+
+.bg-shaded-blue {
+  background: linear-gradient(215deg, rgba(22,32,36,1) 25%, rgba(0,0,0,1) 49%, rgba(0,0,0,1) 63%, rgba(22,32,36,1) 80%);
+}
+
+.bg-nav-mod {
+  background: linear-gradient(215deg, rgba(22,32,36,1) 25%, rgba(0,0,0,1) 49%, rgba(0,0,0,1) 63%, rgba(22,32,36,1) 80%);
+
+
+}
+
+.bg-blue {
+  background: linear-gradient(180deg, rgba(51,51,51,1) 0%, rgba(36,36,36,1) 35%, rgba(0,0,0,1) 100%);
+}
+
+.bg-shaded-blue-2 {
+
+  background: #162024;
+
+
+
+}
+
+.bg-bg {
+  
+  background: rgb(35,125,147) !important;
+  background: radial-gradient(circle, rgba(35,125,147,1) 0%, rgba(19,69,81,1) 45%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%) !important;
+
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
