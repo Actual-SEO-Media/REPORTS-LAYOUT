@@ -3786,7 +3786,6 @@ input[type="button"].btn-block {
 }
 
 .custom-file-input:focus ~ .custom-file-label {
-  border-color: #bac8f3;
   box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
 }
 
@@ -3816,7 +3815,6 @@ input[type="button"].btn-block {
   line-height: 1.5;
   color: #6e707e;
   background-color: #fff;
-  border: 1px solid #d1d3e2;
   border-radius: 0.35rem;
 }
 
@@ -6498,6 +6496,8 @@ background-color: #061418 !important;
   background: linear-gradient(215deg, rgba(22,32,36,1) 25%, rgba(0,0,0,1) 49%, rgba(0,0,0,1) 63%, rgba(22,32,36,1) 80%);
 }
 
+
+
 .bg-nav-mod {
   background: linear-gradient(215deg, rgba(22,32,36,1) 25%, rgba(0,0,0,1) 49%, rgba(0,0,0,1) 63%, rgba(22,32,36,1) 80%);
 
@@ -6514,6 +6514,13 @@ background-color: #061418 !important;
 
 
 
+}
+ input {
+  border-width: 0px !important;
+  text-indent: 60px !important;
+  padding: 10px 0px !important;
+  font-size: 15px !important;
+  
 }
 
 .bg-bg {

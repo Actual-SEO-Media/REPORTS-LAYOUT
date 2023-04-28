@@ -75,18 +75,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-dark text-white border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn bg-shaded-blue-2" type="button">
-                                    <i class="fas fa-search fa-sm" ></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                   
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto bg-shaded-blue-2" style = "border-radius: 4em;margin-top: 20px">
@@ -253,10 +242,23 @@
                     
                 <!-- Page Heading -->          
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">   
-                    <h1 class="h3 mb-0 text-white" style = "font-family: SFPROBOLD;">Dashboard</h1>
+                    <h1 class="h3 mb-0 text-white" style = "font-family: SFPROBOLD;">Dashboard <input class = "text-white rounded "
+                        type="file" id = "file_csv" accept="csv" style = "font-family: SFPROREG; margin-left:10px; top:-5px; position: relative;">  <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-shaded-blue-2 text-white border-0 small" style = "font-family: SFPROREG; margin-left:10px; top:-5px; position: relative;" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append" style = "top: -5px; position: relative; height: 36px">
+                                <button class="btn bg-shaded-blue-2" type="button">
+                                    <i class="fas fa-search fa-sm bg-shaded-blue-2" ></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                      </h1>
                             
                     
-                            <input class = "bg-dark text-white rounded" type="file" id = "file_csv" accept="csv" style = "font-family: SFPROREG; margin-left:5px; margin-top:0px">
+                            
                             <py-script>
                                 import js
                                 import DATA_REPORT_CLEANER as CLEAN
