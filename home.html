@@ -25,40 +25,30 @@
     <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.min.js"></script>
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <py-config>
-                    
-        packages = ["pandas", "python-dotenv"]
+                   
+        packages = ["pandas", "requests", "ssl", "urllib3"]
 
         [[fetch]]
-
-
-        files =["DATA_REPORT_CLEANER.py"]
+        files = ["DATA_REPORT_CLEANER.py", "server.py"]
 
         [splashscreen]
         enabled = false
             
     </py-config>
+ 
 
 <script>
-    fetch('/ftp-api', {
-        method: 'POST',
-        body: JSON.stringify({
-          host: '131.153.202.232',
-          user: 'webdesign@actualseomedia.com',
-          password: 'Actualseo5150!',
-          path: 'reports//abba//data//ReportGraphC.csv'
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => response.text())
-      .then(fileContents => {
-        console.log(fileContents);
-        console.log("Files Should Appear here")
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    const fs = require('fs');
+
+function listFoldersInCurrentDirectory() {
+  const folders = fs.readdirSync('./', { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+  console.log(folders);
+  listFoldersInCurrentDirectory();
+
+}
+
 </script>
 </head>
 
@@ -277,16 +267,20 @@
                         </div>
                     </form>
                       </h1>
-                            
+                     
+                    
+                   
                     
                             
                             <py-script>
                                 import js
                                 import DATA_REPORT_CLEANER as CLEAN
+                                import server as srk
                                 from pyodide.ffi import create_proxy
                                 js.createObject(create_proxy(globals()), "pyodideGlobals")
                                 js.createObject(create_proxy(CLEAN.DATA_CLEANER), "CLEANER")
-
+                                js.createObject(create_proxy(srk.find_folder), "FIND_FOLDER")
+   
                             </py-script>
                             <script>
                                 function createObject(object, variableName){
@@ -543,7 +537,7 @@
     </div>
                     </div>
                     
-
+               
                     <!-- Content Row -->
 
                         <div class="col-lg-6 mb-4">
@@ -619,6 +613,8 @@ $(document).ready(function() {
                             </div>
         
                         </div>
+                    
+                                             
                         <!-- /.container-fluid -->
                         <div class ="col-lg-6 mb-4">
                             <!-- Pie Chart -->
@@ -697,7 +693,7 @@ $(document).ready(function() {
                         </div>
                     </div>
 
-                    
+            
                    
                     <!-- End of Main Content -->
 
@@ -778,6 +774,8 @@ $('#dataTable2').DataTable({
                         </div>
     
                     </div>
+
+               
                     <!-- /.container-fluid -->
                     <div class ="col-lg-6 mb-4">
                         <!-- Pie Chart -->

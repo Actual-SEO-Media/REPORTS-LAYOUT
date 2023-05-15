@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import pandas as pd
@@ -15,14 +13,22 @@ from js import Blob, document, window, dfd
 from pyodide.ffi import create_proxy, to_js
 import datetime
 import os
+import requests
+import ssl
+import urllib3
+#VARIABLES ATTACHED WITH THE STRING OF A CLUMN VARIABLE FROM THE RANKING DETAIL FILE
 
 
-async def DATA_CLEANER(FILE):
-   
+
+          
+# app = Flask(__name__) 
+# @app.route('/FindFrame', methods = ['POST']) 
+# def FIND_FRAME ():
+def FIND_FRAME (FILE):
+
     DATA = [row for row in csv.reader(FILE.splitlines(), delimiter=',')]
     df = pd.DataFrame(list(DATA)[1:], columns = list(DATA)[0:1][0])
     print(list(DATA)[0:1][0])
-    #VARIABLES ATTACHED WITH THE STRING OF A CLUMN VARIABLE FROM THE RANKING DETAIL FILE
     KW = 'Keyword'
     VSBY = 'Visibility'
     SE = "SE"
@@ -48,138 +54,129 @@ async def DATA_CLEANER(FILE):
     ARRAY_GOOGLE_MOBILE = []
     ARRAY_BING = []
     ARRAY_YAHOO = []
-    
 
-    def check_word_in_list(word, string_list): 
-        for string in string_list:
-            if word in string:
-                return True
-        return False
+
 
     def COLUMN_NAME():
-        for x in range(len(list(DATA)[0:1][0])):
-            if "Google" in list(DATA)[0:1][0][x]:
-                if "mobile" in list(DATA)[0:1][0][x] or "Mobile" in list(DATA)[0:1][0][x] or "MOB" in list(DATA)[0:1][0][x] or "Mob" in list(DATA)[0:1][0][x] or "mob" in list(DATA)[0:1][0][x]:
-                    if "previous" in list(DATA)[0:1][0][x] or "Previous" in list(DATA)[0:1][0][x]:
-                        global GOOGLE_MOBILE_PREVIOUS
-                        GOOGLE_MOBILE_PREVIOUS = list(DATA)[0:1][0][x]
-                    else:
-                        if "Difference" in list(DATA)[0:1][0][x] or "difference" in list(DATA)[0:1][0][x]:
-                            global GOOGLE_MOBILE_DIFFERENCE
-                            GOOGLE_MOBILE_DIFFERENCE = list(DATA)[0:1][0][x]
-
-                        else:
-                            if "Rank" in list(DATA)[0:1][0][x]:
-                                global GOOGLE_MOBILE_RANK 
-                                GOOGLE_MOBILE_RANK = list(DATA)[0:1][0][x]
-
-                            else:
-                                if "URL" in list(DATA)[0:1][0][x]:
-                                    global GOOGLE_MOBILE_URL
-                                    GOOGLE_MOBILE_URL = list(DATA)[0:1][0][x]
-                                else:
-                                    if "SERP" in list(DATA)[0:1][0][x]:
-                                        global GOOGLE_MOBILE_SERP
-                                        GOOGLE_MOBILE_SERP = list(DATA)[0:1][0][x]
-                                    else:
-                                        pass
-                                
-                else:
-                    if "previous" in list(DATA)[0:1][0][x] or "Previous" in list(DATA)[0:1][0][x]:
-                        global GOOGLE_PREVIOUS
-                        GOOGLE_PREVIOUS = list(DATA)[0:1][0][x]
-
-                    else:
-                        if "Difference" in list(DATA)[0:1][0][x] or "difference" in list(DATA)[0:1][0][x]:
-                            global GOOGLE_DIFFERENCE
-                            GOOGLE_DIFFERENCE = list(DATA)[0:1][0][x]
-
-                        else:
-                            if "Rank" in list(DATA)[0:1][0][x]:
-                                global GOOGLE_RANK 
-                                GOOGLE_RANK = list(DATA)[0:1][0][x]
-
-                            else:
-                                if "URL" in list(DATA)[0:1][0][x]:
-                                    global GOOGLE_URL
-                                    GOOGLE_URL = list(DATA)[0:1][0][x]
-                                else:
-                                    if "SERP" in list(DATA)[0:1][0][x]:
-                                        global GOOGLE_SERP
-                                        GOOGLE_SERP = list(DATA)[0:1][0][x]
-                                    else:
-                                        pass
-            else:
-                if "Yahoo" in list(DATA)[0:1][0][x] or "yahoo" in list(DATA)[0:1][0][x]:
-                    if "previous" in list(DATA)[0:1][0][x] or "Previous" in list(DATA)[0:1][0][x]:
-                        global YAHOO_PREVIOUS
-                        YAHOO_PREVIOUS = list(DATA)[0:1][0][x]
-
-                    else:
-                        if "Difference" in list(DATA)[0:1][0][x] or "difference" in list(DATA)[0:1][0][x]:
-                            global YAHOO_DIFFERENCE
-                            YAHOO_DIFFERENCE = list(DATA)[0:1][0][x]
-
-                        else:
-                            if "Rank" in list(DATA)[0:1][0][x]:
-                                global YAHOO_RANK
-                                YAHOO_RANK = list(DATA)[0:1][0][x]
-
-                            else:
-                                if "URL" in list(DATA)[0:1][0][x]:
-                                    global YAHOO_URL
-                                    YAHOO_URL = list(DATA)[0:1][0][x]
-                                else:
-                                    if "SERP" in list(DATA)[0:1][0][x]:
-                                        global YAHOO_SERP
-                                        YAHOO_SERP = list(DATA)[0:1][0][x]
-                                    else:
-                                        pass
-                                    
-                else:
-                    if "Bing" in list(DATA)[0:1][0][x] or "bing" in list(DATA)[0:1][0][x]:
+            for x in range(len(list(DATA)[0:1][0])):
+                if "Google" in list(DATA)[0:1][0][x]:
+                    if "mobile" in list(DATA)[0:1][0][x] or "Mobile" in list(DATA)[0:1][0][x] or "MOB" in list(DATA)[0:1][0][x] or "Mob" in list(DATA)[0:1][0][x] or "mob" in list(DATA)[0:1][0][x]:
                         if "previous" in list(DATA)[0:1][0][x] or "Previous" in list(DATA)[0:1][0][x]:
-                            global BING_PREVIOUS
-                            BING_PREVIOUS = list(DATA)[0:1][0][x]
-
+                            global GOOGLE_MOBILE_PREVIOUS
+                            GOOGLE_MOBILE_PREVIOUS = list(DATA)[0:1][0][x]
                         else:
                             if "Difference" in list(DATA)[0:1][0][x] or "difference" in list(DATA)[0:1][0][x]:
-                                global BING_DIFFERENCE
-                                BING_DIFFERENCE = list(DATA)[0:1][0][x]
+                                global GOOGLE_MOBILE_DIFFERENCE
+                                GOOGLE_MOBILE_DIFFERENCE = list(DATA)[0:1][0][x]
 
                             else:
                                 if "Rank" in list(DATA)[0:1][0][x]:
-                                    global BING_RANK
-                                    BING_RANK = list(DATA)[0:1][0][x]
+                                    global GOOGLE_MOBILE_RANK 
+                                    GOOGLE_MOBILE_RANK = list(DATA)[0:1][0][x]
 
                                 else:
                                     if "URL" in list(DATA)[0:1][0][x]:
-                                        global BING_URL
-                                        BING_URL = list(DATA)[0:1][0][x]
+                                        global GOOGLE_MOBILE_URL
+                                        GOOGLE_MOBILE_URL = list(DATA)[0:1][0][x]
                                     else:
                                         if "SERP" in list(DATA)[0:1][0][x]:
-                                            global BING_SERP
-                                            BING_SERP = list(DATA)[0:1][0][x]
+                                            global GOOGLE_MOBILE_SERP
+                                            GOOGLE_MOBILE_SERP = list(DATA)[0:1][0][x]
+                                        else:
+                                            pass
+                                    
+                    else:
+                        if "previous" in list(DATA)[0:1][0][x] or "Previous" in list(DATA)[0:1][0][x]:
+                            global GOOGLE_PREVIOUS
+                            GOOGLE_PREVIOUS = list(DATA)[0:1][0][x]
+
+                        else:
+                            if "Difference" in list(DATA)[0:1][0][x] or "difference" in list(DATA)[0:1][0][x]:
+                                global GOOGLE_DIFFERENCE
+                                GOOGLE_DIFFERENCE = list(DATA)[0:1][0][x]
+
+                            else:
+                                if "Rank" in list(DATA)[0:1][0][x]:
+                                    global GOOGLE_RANK 
+                                    GOOGLE_RANK = list(DATA)[0:1][0][x]
+
+                                else:
+                                    if "URL" in list(DATA)[0:1][0][x]:
+                                        global GOOGLE_URL
+                                        GOOGLE_URL = list(DATA)[0:1][0][x]
+                                    else:
+                                        if "SERP" in list(DATA)[0:1][0][x]:
+                                            global GOOGLE_SERP
+                                            GOOGLE_SERP = list(DATA)[0:1][0][x]
+                                        else:
+                                            pass
+                else:
+                    if "Yahoo" in list(DATA)[0:1][0][x] or "yahoo" in list(DATA)[0:1][0][x]:
+                        if "previous" in list(DATA)[0:1][0][x] or "Previous" in list(DATA)[0:1][0][x]:
+                            global YAHOO_PREVIOUS
+                            YAHOO_PREVIOUS = list(DATA)[0:1][0][x]
+
+                        else:
+                            if "Difference" in list(DATA)[0:1][0][x] or "difference" in list(DATA)[0:1][0][x]:
+                                global YAHOO_DIFFERENCE
+                                YAHOO_DIFFERENCE = list(DATA)[0:1][0][x]
+
+                            else:
+                                if "Rank" in list(DATA)[0:1][0][x]:
+                                    global YAHOO_RANK
+                                    YAHOO_RANK = list(DATA)[0:1][0][x]
+
+                                else:
+                                    if "URL" in list(DATA)[0:1][0][x]:
+                                        global YAHOO_URL
+                                        YAHOO_URL = list(DATA)[0:1][0][x]
+                                    else:
+                                        if "SERP" in list(DATA)[0:1][0][x]:
+                                            global YAHOO_SERP
+                                            YAHOO_SERP = list(DATA)[0:1][0][x]
                                         else:
                                             pass
                                         
                     else:
-                        pass
-       
-        return GOOGLE_MOBILE_PREVIOUS, GOOGLE_MOBILE_DIFFERENCE, GOOGLE_MOBILE_RANK, GOOGLE_PREVIOUS, GOOGLE_DIFFERENCE, GOOGLE_RANK, YAHOO_PREVIOUS, YAHOO_DIFFERENCE, YAHOO_RANK, BING_RANK, BING_DIFFERENCE, BING_PREVIOUS;    
+                        if "Bing" in list(DATA)[0:1][0][x] or "bing" in list(DATA)[0:1][0][x]:
+                            if "previous" in list(DATA)[0:1][0][x] or "Previous" in list(DATA)[0:1][0][x]:
+                                global BING_PREVIOUS
+                                BING_PREVIOUS = list(DATA)[0:1][0][x]
 
-          
-    COLUMN_NAME()
- 
-   
+                            else:
+                                if "Difference" in list(DATA)[0:1][0][x] or "difference" in list(DATA)[0:1][0][x]:
+                                    global BING_DIFFERENCE
+                                    BING_DIFFERENCE = list(DATA)[0:1][0][x]
 
+                                else:
+                                    if "Rank" in list(DATA)[0:1][0][x]:
+                                        global BING_RANK
+                                        BING_RANK = list(DATA)[0:1][0][x]
 
+                                    else:
+                                        if "URL" in list(DATA)[0:1][0][x]:
+                                            global BING_URL
+                                            BING_URL = list(DATA)[0:1][0][x]
+                                        else:
+                                            if "SERP" in list(DATA)[0:1][0][x]:
+                                                global BING_SERP
+                                                BING_SERP = list(DATA)[0:1][0][x]
+                                            else:
+                                                pass
+                                            
+                        else:
+                            pass
+        
+            return GOOGLE_MOBILE_PREVIOUS, GOOGLE_MOBILE_DIFFERENCE, GOOGLE_MOBILE_RANK, GOOGLE_PREVIOUS, GOOGLE_DIFFERENCE, GOOGLE_RANK, YAHOO_PREVIOUS, YAHOO_DIFFERENCE, YAHOO_RANK, BING_RANK, BING_DIFFERENCE, BING_PREVIOUS;    
 
+            
+    COLUMN_NAME();
+    
     GOD_F = {KW: df[KW], GOOGLE_URL: df[GOOGLE_URL], GOOGLE_RANK: df[GOOGLE_RANK], GOOGLE_PREVIOUS: df[GOOGLE_PREVIOUS], GOOGLE_DIFFERENCE: df[GOOGLE_DIFFERENCE]}
     GOM_F = {KW: df[KW],GOOGLE_MOBILE_URL: df[GOOGLE_MOBILE_URL], GOOGLE_MOBILE_PREVIOUS: df[GOOGLE_MOBILE_PREVIOUS], GOOGLE_MOBILE_RANK: df[GOOGLE_MOBILE_RANK], GOOGLE_MOBILE_DIFFERENCE: df[GOOGLE_MOBILE_DIFFERENCE]}            
     BNG_F = {KW: df[KW],BING_URL: df[BING_URL], BING_RANK: df[BING_RANK], BING_DIFFERENCE: df[BING_DIFFERENCE], BING_PREVIOUS: df[BING_PREVIOUS]}
     YAH_F = {KW: df[KW],YAHOO_URL: df[YAHOO_URL], YAHOO_RANK: df[YAHOO_RANK],YAHOO_PREVIOUS: df[YAHOO_PREVIOUS], YAHOO_DIFFERENCE: df[YAHOO_DIFFERENCE]}
-    
+
     GOD_H = pd.DataFrame(GOD_F)
 
     GOM_H = pd.DataFrame(GOM_F)
@@ -187,8 +184,8 @@ async def DATA_CLEANER(FILE):
     BNG_H = pd.DataFrame(BNG_F)
 
     YAH_H = pd.DataFrame(YAH_F)
-    
-   
+
+
     GOD_CLEAN_1 = GOD_H[GOD_H[GOOGLE_DIFFERENCE] != "Stays out"]   
     GOM_CLEAN_1 = GOM_H[GOM_H[GOOGLE_MOBILE_DIFFERENCE] != "Stays out"]    
     BNG_CLEAN_1 = BNG_H[BNG_H[BING_DIFFERENCE] != "Stays out"]
@@ -201,9 +198,9 @@ async def DATA_CLEANER(FILE):
     ArrayGOOGLE_DIFFERENCE = pd.array(GOD_CLEAN_2[GOOGLE_DIFFERENCE])
     ArrayGOOGLE_MOBILE_RANK = pd.array(GOM_CLEAN_2[GOOGLE_MOBILE_RANK])
     ArrayGOOGLE_MOBILE_DIFFERENCE = pd.array(GOM_CLEAN_2[GOOGLE_MOBILE_DIFFERENCE])           
-           
+        
 
-  
+
     def NEG_Y_FUNCTION(X, Y, ARRAY):
         Y = int(Y)
         X = int(X)
@@ -503,8 +500,6 @@ async def DATA_CLEANER(FILE):
                 NOTE_Y_FUNCTION(ARX, AP[x], RankArray)
             
         return RankArray
-
-
     Array_GOOGLE_RANK = BAR_RMV_ARRAY_OUTPUT(ArrayGOOGLE_RANK)
 
     GPD = ARRAY_OUTPUT(ArrayGOOGLE_DIFFERENCE, Array_GOOGLE_RANK)
@@ -842,84 +837,39 @@ async def DATA_CLEANER(FILE):
 
     CLEAN_REPORT = pd.DataFrame(index=report, data=DATA_REPORTS)    
 
-    # tempLink = js.document.createElement('a')
-    # tempLink2 = js.document.createElement('a')
-    # tempLink3 = js.document.createElement('a')
-    # tempLink4 = js.document.createElement('a')
-    # tempLink5 = js.document.createElement('a')
-
-    
-    # blob = js.Blob.new([CLEAN_REPORT.to_csv(index = report , )], { type: 'text/csv' })
-    # blob2 = js.Blob.new([GOD_NEW.to_csv(index = None, )], { type: 'text/csv' })
-    # blob3 = js.Blob.new([GOM_NEW.to_csv(index = None, )], { type: 'text/csv' })
-    # blob4 = js.Blob.new([BNG_NEW.to_csv(index = None, )], { type: 'text/csv' })
-    # blob5 = js.Blob.new([YAH_NEW.to_csv(index = None, )], { type: 'text/csv' })
-
-    # url = js.window.URL.createObjectURL(blob)
-    # url2 = js.window.URL.createObjectURL(blob2)
-    # url3 = js.window.URL.createObjectURL(blob3)
-    # url4 = js.window.URL.createObjectURL(blob4)
-    # url5 = js.window.URL.createObjectURL(blob5)
-
-
-    # tempLink.href = url
-    # tempLink2.href = url2
-    # tempLink3.href = url3
-    # tempLink4.href = url4
-    # tempLink5.href = url5
-
-    # js.console.log(tempLink)
-    # js.console.log(tempLink2)
-    # js.console.log(tempLink3)
-    # js.console.log(tempLink4)
-    # js.console.log(tempLink5)
-
-
-
-    # tempLink.setAttribute('download', "ReportSummary.csv");
-    # tempLink2.setAttribute('download', 'ReportSERPPositionsGOD.csv');
-    # tempLink3.setAttribute('download', 'ReportSERPPositionsGOM.csv');
-    # tempLink4.setAttribute('download', 'ReportSERPPositionsBNG.csv');
-    # tempLink5.setAttribute('download', 'ReportSERPPositionsYAH.csv');
-
-    # tempLink.click(); 
-    # tempLink2.click();
-    # tempLink3.click(); 
-    # tempLink4.click(); 
-    # tempLink5.click(); 
-
-    
-    links = []
-    blobs = []
     filenames = [f"{NEW_HEAD.upper()}" + "_SUMMARY.csv", "ReportSERPPositionsGOD.csv", "ReportSERPPositionsGOM.csv", "ReportSERPPositionsBNG.csv", "ReportSERPPositionsYAH.csv"]
     dataframes = [CLEAN_REPORT, GOD_NEW, GOM_NEW, BNG_NEW, YAH_NEW]
     
-    
-    for i, df in enumerate(dataframes):
-        if i == 0:
-            blob = js.Blob.new([df.to_csv(index = report, sep='|')], {"type": "text/csv"})
-            url = js.window.URL.createObjectURL(blob)
-            link = js.document.createElement("a")
-            link.href = url
-            link.setAttribute("download", filenames[i])
-            links.append(link)
-            blobs.append(blob)
-        else:
-            blob = js.Blob.new([df.to_csv(index=None, header=False, sep='|')], {"type": "text/csv"})
-            url = js.window.URL.createObjectURL(blob)
-            link = js.document.createElement("a")
-            link.href = url
-            link.setAttribute("download", filenames[i])
-            links.append(link)
-            blobs.append(blob)
-    for i, link in enumerate(links):
-        js.console.log(link)
-        link.click()
-        
-    ASM_FTP_UN = str(os.getenv('ASM_UN'))
-    ASM_FTP_PW = str(os.getenv('ASM_PW'))
+
+    REPORT_NAME = ['ReportSERPPositionsGOD.csv', 'ReportSERPPositionsGOM.csv', 'ReportSERPPositionsBNG.csv', 'ReportSERPPositionsYAH.csv']
+    frames = [GOD_DF, GOM_DF, BNG_DF, YAH_DF]
+    for i in range(len(frames)):
+        frames[i].to_csv(REPORT_NAME[i], index = None, header = False, sep='|')
+    # CHOSEN_FRApythME = REPORT_NAME[ls]
+    # return json.dumps({"result": CHOSEN_FRAME})
+    # print(frames[0:3])
+    return frames
+
+# FIND_FRAME ('ABBA_TEST.csv')
+
+# if __name__ == "__main__":
+#     app.run(port=5000)
+def find_folder(folder_name):
+    # set the directory path
+    # Replace with the URL of the raw CSV file on GitHub
+    requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = 'ALL:@SECLEVEL=1'
+
+    csv_url = f"http://raw.githubusercontent.com/Actual-SEO-Media/REPORTS-LAYOUT/CTM_BRANCH/reports/{folder_name}/data/ReportGraphA.csv"
+    js.console.log(csv_url)
+    response = requests.get(csv_url)
+    df = pd.read_csv(response.content)
+    # 
+
+    # Print the first few rows of the DataFrame
+    print(df.head())
 
 
+  
 
 
 
