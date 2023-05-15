@@ -32,23 +32,34 @@
 
 
         files =["DATA_REPORT_CLEANER.py"]
+
+        [splashscreen]
+        enabled = false
             
     </py-config>
-<py-script>
-    from dotenv import load_dotenv
-    import os
-    import js
-    import ftplib
 
-    load_dotenv()
-    HOSTNAME = str(os.getenv('HOSTNAME'))
-    USERNAME = str(os.getenv('USERNAME'))
-    PASSWORD = str(os.getenv('PASSWORD'))
-
-
-    print(HOSTNAME)
-
-</py-script>
+<script>
+    fetch('/ftp-api', {
+        method: 'POST',
+        body: JSON.stringify({
+          host: '131.153.202.232',
+          user: 'webdesign@actualseomedia.com',
+          password: 'Actualseo5150!',
+          path: 'reports//abba//data//ReportGraphC.csv'
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.text())
+      .then(fileContents => {
+        console.log(fileContents);
+        console.log("Files Should Appear here")
+      })
+      .catch(error => {
+        console.error(error);
+      });
+</script>
 </head>
 
 <body id="page-top" class = "bg-bg-main">
@@ -94,6 +105,13 @@
                                         <input type="text" class="form-control bg-light border-0 small"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
+                                            <datalist id="Client-Reports">
+                                                <option value="Abba">
+                                                <option value="">
+                                                <option value="Mint">
+                                                <option value="Strawberry">
+                                                <option value="Vanilla">
+                                            </datalist>
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -204,7 +222,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="dash mr-2 d-none d-lg-inline text-white" style = "font-family: SFPROREG">Actual SEO Media</span>
-                                <img class="img-profile rounded-circle" src="img/logocomp.png">
+                                <img class="img-profile rounded-circle" src="img/LogoComp.png">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -246,11 +264,14 @@
                         type="file" id = "file_csv" accept="csv" style = "font-family: SFPROREG; margin-left:10px; top:-5px; position: relative;">  <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-shaded-blue-2 text-white border-0 small" style = "font-family: SFPROREG; margin-left:10px; top:-5px; position: relative;" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append" style = "top: -5px; position: relative; height: 36px">
-                                <button class="btn bg-shaded-blue-2" type="button">
-                                    <i class="fas fa-search fa-sm bg-shaded-blue-2" ></i>
+                            <input type="Search" id = "SEARCH_INPUT" class="form-control bg-shaded-blue-2 border-0 small" style = "font-family: SFPROREG; margin-left:10px; top:-5px; position: relative;" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" required>
+                            
+                            <div class="input-group-append" style = "font-family: SFPROREG;top: -5px; position: relative; height: 36px">
+                                <button class="btn bg-shaded-blue-2" type="button" onclick = "SEARCH_I()">
+                                    <i class="fas fa-search fa-sm bg-shaded-blue-2" >
+
+                                    </i>
                                 </button>
                             </div>
                         </div>
@@ -932,6 +953,8 @@ $('#dataTable3').DataTable({
  
      <!-- Page level custom scripts -->
      <script src="js/demo/datatables-demo.js"></script>
+     <script src="js/search_input.js"></script>
+
 
 </body>
 
